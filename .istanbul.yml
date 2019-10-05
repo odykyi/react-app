@@ -4,6 +4,7 @@ instrumentation:
   include-all-sources: true
   root: .
   extensions: ['.js', '.jsx']
+
 check:
   global:
     statements: 80
