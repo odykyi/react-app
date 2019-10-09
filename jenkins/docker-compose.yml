@@ -1,22 +1,19 @@
-version: '3'
+version: '3.2'
+
+volumes:
+  jenkins-home:
 
 services:
-
   jenkins:
+    image: localhost:5000/jenkins-docker
     build: .
-    container_name: jenkins
-    privileged: true
-    restart: always
+    restart: unless-stopped
     ports:
-      - 8080:8080
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
     volumes:
-      - ./jenkins_home:/var/jenkins_home
+      - jenkins-home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/bin/docker
-
-  registry:
-    image: registry
-    container_name: registry
-    restart: always
-    ports:
-      - 5000:5000
+    container_name: jenkins-docker
